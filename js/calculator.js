@@ -2,6 +2,7 @@ let operand1 = null;
 let operand2 = null;
 let operator = null;
 let power = false;
+let inError = false;
 
 document.addEventListener("DOMContentLoaded", function () {
   AddEventListeners();
@@ -45,7 +46,8 @@ function AddEventListeners() {
 
 function numberClicked(numberButton) {
   const number = numberButton.value;
-  const display = document.getElementById("display");
+  const digits = document.getElementById("digits");
+  if (inError) return;
   if (operator === null) {
     if (operand1 === null) {
       operand1 = number;
@@ -56,7 +58,7 @@ function numberClicked(numberButton) {
         operand1 += number;
       }
     }
-    display.textContent = operand1;
+    digits.textContent = operand1;
   } else {
     if (operand2 === null) {
       operand2 = number;
@@ -67,7 +69,7 @@ function numberClicked(numberButton) {
         operand2 += number;
       }
     }
-    display.textContent = operand2;
+    digits.textContent = operand2;
   }
 }
 
@@ -78,20 +80,25 @@ function operatorClicked(operatorButton) {
 
 
 function equalsClicked() {
-  const display = document.getElementById("display");
+  const digits = document.getElementById("digits");
+  const errorIndicator = document.getElementById("error-indicator");
   if (operand1 === null || operand2 === null || operator === null) {
     return;
   }
   if (operator === "/" && operand2 === "0") {
-    display.textContent = "ERROR";
+    errorIndicator.textContent = "E";
+    digits.textContent = "0";
+    inError = true;
     return;
   }
   const result = operate(Number(operand1), Number(operand2), operator);
   if (result.toString().length > 12) {
-    display.textContent = "OVERFLOW";
+    errorIndicator.textContent = "E";
+    digits.textContent = "0";
+    inError = true;
     return;
   }
-  display.textContent = result;
+  digits.textContent = result;
   operand1 = result.toString();
   operand2 = null;
   operator = null;
@@ -101,16 +108,21 @@ function clearClicked() {
   operand1 = null;
   operand2 = null;
   operator = null;
-  const display = document.getElementById("display");
-  display.textContent = "0";
+  const digits = document.getElementById("digits");
+  digits.textContent = "0";
+  const errorIndicator = document.getElementById("error-indicator");
+  errorIndicator.textContent = "";
+  inError = false;
 }
 
 function offClicked() {
   operand1 = null;
   operand2 = null;
   operator = null;
-  const display = document.getElementById("display");
-  display.innerHTML = "&nbsp;";
+  const digits = document.getElementById("digits");
+  digits.innerHTML = "";
+  const errorIndicator = document.getElementById("error-indicator");
+  errorIndicator.textContent = "";
   power = false;
 }
 
@@ -118,9 +130,10 @@ function onClicked() {
   operand1 = null;
   operand2 = null;
   operator = null;
-  const display = document.getElementById("display");
-  display.textContent = "0";
+  const digits = document.getElementById("digits");
+  digits.textContent = "0";
   power = true;
+  inError = false;
 }
 
 function operate(a, b, operator) {

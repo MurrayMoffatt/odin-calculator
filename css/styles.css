@@ -29,6 +29,7 @@
 }
 
 .display {
+  position: relative;
   color: #333333;
   background-color: #E0E0E0;
   padding: 15px 10px 0px 10px;
@@ -37,6 +38,19 @@
   font-size: 80px;
   text-align: right;
   margin-bottom: 20px;
+  height: 95px;
+}
+
+.digits {
+  font-family: "LCD";
+
+}
+
+.error {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  font-family: "LCD";
 }
 
 .title {
