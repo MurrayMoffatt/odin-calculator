@@ -12,29 +12,30 @@
 <body>
   <div class="container">
     <div class="calculator">
-      <div class="display">0123456789</div>
+      <div class="display" id="display">&nbsp;</div>
       <div class="buttons">
         <button class="button" id="button-off">OFF</button>
         <button class="button" id="button-on">ON</button>
         <button class="button" id="button-clear">AC</button>
-        <button class="button" id="button-divide">&divide;</button>
-        <button class="button" id="button-7">7</button>
-        <button class="button" id="button-8">8</button>
-        <button class="button" id="button-9">9</button>
-        <button class="button" id="button-multiply">&times;</button>
-        <button class="button" id="button-4">4</button>
-        <button class="button" id="button-5">5</button>
-        <button class="button" id="button-6">6</button>
-        <button class="button" id="button-minus">&minus;</button>
-        <button class="button" id="button-1">1</button>
-        <button class="button" id="button-2">2</button>
-        <button class="button" id="button-3">3</button>
-        <button class="button" id="button-plus">&plus;</button>
-        <button class="button" id="button-0">0</button>
+        <button class="button operatorbutton" id="button-divide" value="/">&divide;</button>
+        <button class="button numberbutton" id="button-7" value="7">7</button>
+        <button class="button numberbutton" id="button-8" value="8">8</button>
+        <button class="button numberbutton" id="button-9" value="9">9</button>
+        <button class="button operatorbutton" id="button-multiply" value="*">&times;</button>
+        <button class="button numberbutton" id="button-4" value="4">4</button>
+        <button class="button numberbutton" id="button-5" value="5">5</button>
+        <button class="button numberbutton" id="button-6" value="6">6</button>
+        <button class="button operatorbutton" id="button-minus" value="-">&minus;</button>
+        <button class="button numberbutton" id="button-1" value="1">1</button>
+        <button class="button numberbutton" id="button-2" value="2">2</button>
+        <button class="button numberbutton" id="button-3" value="3">3</button>
+        <button class="button operatorbutton" id="button-plus" value="+">&plus;</button>
+        <button class="button numberbutton" id="button-0" value="0">0</button>
         <button class="button" id="button-decimal">.</button>
         <button class="button" id="button-equals">&equals;</button>
       </div>
     </div>
   </div>
+  <script src="js/calculator.js"></script>
 </body>
 </html>
