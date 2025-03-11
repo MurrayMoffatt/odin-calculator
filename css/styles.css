@@ -8,8 +8,8 @@
 }
 
 @font-face {
-  font-family: "Technology";
-  src: url(../fonts/technology.ttf);
+  font-family: "LCD";
+  src: url(../fonts/lcd.ttf);
 }
 
 .container {
@@ -33,7 +33,7 @@
   background-color: #E0E0E0;
   padding: 15px 10px 0px 10px;
   border-radius: 10px;
-  font-family: "Technology";
+  font-family: "LCD";
   font-size: 80px;
   text-align: right;
   margin-bottom: 20px;
