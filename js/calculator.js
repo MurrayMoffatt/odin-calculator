@@ -82,7 +82,15 @@ function equalsClicked() {
   if (operand1 === null || operand2 === null || operator === null) {
     return;
   }
+  if (operator === "/" && operand2 === "0") {
+    display.textContent = "ERROR";
+    return;
+  }
   const result = operate(Number(operand1), Number(operand2), operator);
+  if (result.toString().length > 12) {
+    display.textContent = "OVERFLOW";
+    return;
+  }
   display.textContent = result;
   operand1 = result.toString();
   operand2 = null;
