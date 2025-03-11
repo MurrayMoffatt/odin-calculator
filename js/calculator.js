@@ -49,7 +49,7 @@ function numberClicked(numberButton) {
   if (operator === null) {
     if (operand1 === null) {
       operand1 = number;
-    } else if (operand1.length < 9) {
+    } else if (operand1.length < 8) {
       if (operand1 === "0" && number !== "0") {
         operand1 = number;
       } else if (operand1 !== "0") {
@@ -60,7 +60,7 @@ function numberClicked(numberButton) {
   } else {
     if (operand2 === null) {
       operand2 = number;
-    } else if (operand2.length < 9) {
+    } else if (operand2.length < 8) {
       if (operand2 === "0" && number !== "0") {
         operand2 = number;
       } else if (operand2 !== "0") {
@@ -79,10 +79,14 @@ function operatorClicked(operatorButton) {
 
 function equalsClicked() {
   const display = document.getElementById("display");
-  if (operand1 !== null && operand2 !== null && operator !== null) {
-    const result = operate(Number(operand1), Number(operand2), operator);
-    display.textContent = result;
+  if (operand1 === null || operand2 === null || operator === null) {
+    return;
   }
+  const result = operate(Number(operand1), Number(operand2), operator);
+  display.textContent = result;
+  operand1 = result.toString();
+  operand2 = null;
+  operator = null;
 }
 
 function clearClicked() {
