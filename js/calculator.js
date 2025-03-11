@@ -1,8 +1,10 @@
+const MAXDIGITS = 12;
 let operand1 = null;
 let operand2 = null;
 let operator = null;
 let power = false;
 let inError = false;
+let resultMode = false;
 
 document.addEventListener("DOMContentLoaded", function () {
   AddEventListeners();
@@ -48,6 +50,11 @@ function numberClicked(numberButton) {
   const number = numberButton.value;
   const digits = document.getElementById("digits");
   if (inError) return;
+  if (resultMode) {
+    operand1 = null;
+    operand2 = null;
+    operator = null;
+  }
   if (operator === null) {
     if (operand1 === null) {
       operand1 = number;
@@ -71,11 +78,16 @@ function numberClicked(numberButton) {
     }
     digits.textContent = operand2;
   }
+  resultMode = false;
 }
 
 function operatorClicked(operatorButton) {
   const operatorValue = operatorButton.value;
+  if (operator !== null) {
+    equalsClicked();
+  }
   operator = operatorValue;
+  resultMode = false;
 }
 
 
@@ -86,22 +98,25 @@ function equalsClicked() {
     return;
   }
   if (operator === "/" && operand2 === "0") {
+    // Divide by zero
     errorIndicator.textContent = "E";
     digits.textContent = "0";
     inError = true;
     return;
   }
   const result = operate(Number(operand1), Number(operand2), operator);
-  if (result.toString().length > 12) {
+  if (parseInt(result).toString().length > MAXDIGITS) {
+    // Number too large
     errorIndicator.textContent = "E";
     digits.textContent = "0";
     inError = true;
     return;
   }
-  digits.textContent = result;
+  digits.textContent = result.toString().substring(0, MAXDIGITS);
   operand1 = result.toString();
   operand2 = null;
   operator = null;
+  resultMode = true;
 }
 
 function clearClicked() {
@@ -113,6 +128,7 @@ function clearClicked() {
   const errorIndicator = document.getElementById("error-indicator");
   errorIndicator.textContent = "";
   inError = false;
+  resultMode = false;
 }
 
 function offClicked() {
@@ -124,6 +140,7 @@ function offClicked() {
   const errorIndicator = document.getElementById("error-indicator");
   errorIndicator.textContent = "";
   power = false;
+  resultMode = false;
 }
 
 function onClicked() {
@@ -134,6 +151,7 @@ function onClicked() {
   digits.textContent = "0";
   power = true;
   inError = false;
+  resultMode = false;
 }
 
 function operate(a, b, operator) {
