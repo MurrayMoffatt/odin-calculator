@@ -30,6 +30,11 @@ function AddEventListeners() {
     if (power) equalsClicked();
   });
 
+  const decimalButton = document.getElementById("button-decimal");
+  decimalButton.addEventListener("click", () => {
+    if (power) decimalClicked();
+  });
+
   const clearButton = document.getElementById("button-clear");
   clearButton.addEventListener("click", () => {
     if (power) clearClicked();
@@ -56,9 +61,10 @@ function numberClicked(numberButton) {
     operator = null;
   }
   if (operator === null) {
+    // Working on operant 1
     if (operand1 === null) {
       operand1 = number;
-    } else if (operand1.length < 8) {
+    } else if (operand1.length < MAXDIGITS) {
       if (operand1 === "0" && number !== "0") {
         operand1 = number;
       } else if (operand1 !== "0") {
@@ -67,9 +73,10 @@ function numberClicked(numberButton) {
     }
     digits.textContent = operand1;
   } else {
+    // Working on operant 2
     if (operand2 === null) {
       operand2 = number;
-    } else if (operand2.length < 8) {
+    } else if (operand2.length < MAXDIGITS) {
       if (operand2 === "0" && number !== "0") {
         operand2 = number;
       } else if (operand2 !== "0") {
@@ -117,6 +124,35 @@ function equalsClicked() {
   operand2 = null;
   operator = null;
   resultMode = true;
+}
+
+function decimalClicked() {
+  if (inError) return;
+  if (resultMode) {
+    operand1 = "0";
+  }
+  if (operator === null) {
+    // Working on operant 1
+    if (operand1 === null) {
+      operand1 = "0.";
+    } else if (operand1.length < MAXDIGITS) {
+      if (operand1.indexOf(".") === -1) {
+        operand1 += ".";
+      }
+    }
+    digits.textContent = operand1;
+  } else {
+    // Working on operant 2
+    if (operand2 === null) {
+      operand2 = "0.";
+    } else if (operand2.length < MAXDIGITS) {
+      if (operand2.indexOf(".") === -1) {
+        operand2 += ".";
+      }
+    }
+    digits.textContent = operand2;
+  }
+  resultMode = false;
 }
 
 function clearClicked() {
