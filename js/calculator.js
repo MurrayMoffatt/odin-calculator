@@ -119,7 +119,8 @@ function equalsClicked() {
     inError = true;
     return;
   }
-  digits.textContent = result.toString().substring(0, MAXDIGITS);
+  //digits.textContent = result.toString().substring(0, MAXDIGITS);
+  digits.textContent = result.toString();
   operand1 = result.toString();
   operand2 = null;
   operator = null;
@@ -191,18 +192,22 @@ function onClicked() {
 }
 
 function operate(a, b, operator) {
+  let result = 0;
   switch (operator) {
     case "+":
-      return add(a, b);
+      result = add(a, b);
+      break;
     case "-":
-      return subtract(a, b);
+      result = subtract(a, b);
+      break;
     case "*":
-      return multiply(a, b);
+      result = multiply(a, b);
+      break;
     case "/":
-      return divide(a, b);
-    default:
-      return "Invalid operator";
+      result = divide(a, b);
+      break;
   }
+  return parseFloat(Math.round(result + "e" + MAXDIGITS) + "e-" + MAXDIGITS);
 }
 
 function add(a, b) {
@@ -219,10 +224,4 @@ function multiply(a, b) {
 
 function divide(a, b) {
   return a / b;
-}
-
-function clear() {
-  operand1 = 0;
-  operand2 = 0;
-  operator = "";
 }
