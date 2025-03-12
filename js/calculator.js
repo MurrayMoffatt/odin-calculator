@@ -97,7 +97,6 @@ function operatorClicked(operatorButton) {
   resultMode = false;
 }
 
-
 function equalsClicked() {
   const digits = document.getElementById("digits");
   const errorIndicator = document.getElementById("error-indicator");
@@ -119,8 +118,7 @@ function equalsClicked() {
     inError = true;
     return;
   }
-  //digits.textContent = result.toString().substring(0, MAXDIGITS);
-  digits.textContent = result.toString();
+  digits.textContent = result.toString().substring(0, MAXDIGITS);
   operand1 = result.toString();
   operand2 = null;
   operator = null;
